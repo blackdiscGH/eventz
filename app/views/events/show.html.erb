@@ -7,12 +7,12 @@
 
 <p>
   <strong>Start date:</strong>
-  <%= @event.start_date %>
+  <%= l @event.start_date, :format => :date_format %>
 </p>
 
 <p>
   <strong>End date:</strong>
-  <%= @event.end_date %>
+  <%= l @event.end_date, :format => :date_format %>
 </p>
 
 <p>

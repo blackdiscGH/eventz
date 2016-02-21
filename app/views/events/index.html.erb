@@ -12,6 +12,7 @@
       <th>Agenda</th>
       <th>Address</th>
       <th>Organizer</th>
+      <th>Tags</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -25,7 +26,10 @@
         <td><%= event.location %></td>
         <td><%= event.agenda %></td>
         <td><%= event.organizer_id %></td>
-        <td><%= link_to 'Show', event %></td>
+        <td><%= link_to 'Show', event%></td>
+        <td><%= event.all_tags.split(",").map { |t| link_to t, tag_path(t)}.join.html_safe() %> <!-- ??? -->
+        </td>
+ 
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

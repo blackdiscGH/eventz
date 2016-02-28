@@ -8,20 +8,20 @@
 </head>
 <body>
 <nav class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container-fluid">
+  <div>
     <div class="navbar-header">
-	  <a class="navbar-brand" href="#">EVENTZ</a>
-	</div>
-  </div>
-  <ul class="nav navbar-nav pull-right">
-    <% if user_signed_in? %>
-      <li><%=link_to "#{current_user.email}"%></li>
-      <li class="active"><%= link_to "Logout",destroy_user_session_path, :method => :delete %></li>
-      <%else%>
-      <li><%= link_to "Login", new_user_session_path%></li>
-      <li class="active"><%= link_to "SignUp",new_user_registration_path%></li>
-    <%end%>
-  </ul>
+	     <a class="navbar-brand" href="#">EVENTZ</a>
+	  </div>
+    <ul class="nav navbar-nav pull-right">
+      <% if user_signed_in? %>
+        <li><%=link_to "#{current_user.email}"%></li>
+        <li class="active"><%= link_to "Logout",destroy_user_session_path, :method => :delete %></li>
+        <%else%>
+        <li><%= link_to "Login", new_user_session_path%></li>
+        <li class="active"><%= link_to "SignUp",new_user_registration_path%></li>
+      <%end%>
+    </ul>
+  </div>  
 </nav>
 
 

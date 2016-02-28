@@ -1,50 +1,73 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
+  <p>
+    <strong>Title:</strong>
+    <%= @event.title %>
+  </p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= l @event.start_date, :format => :date_format %>
-</p>
+  <p>
+    <strong>Start date:</strong>
+    <%= l @event.start_date, :format => :date_format %>
+  </p>
 
-<p>
-  <strong>End date:</strong>
-  <%= l @event.end_date, :format => :date_format %>
-</p>
+  <p>
+    <strong>End date:</strong>
+    <%= l @event.end_date, :format => :date_format %>
+  </p>
 
-<p>
-  <strong>Location:</strong>
-  <%= @event.location %>
-</p>
+  <p>
+    <strong>Location:</strong>
+    <%= @event.location %>
+  </p>
 
-<p>
-  <strong>Agenda:</strong>
-  <%= @event.agenda %>
-</p>
+  <p>
+    <strong>Agenda:</strong>
+    <%= @event.agenda %>
+  </p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @event.address %>
-</p>
+  <p>
+    <strong>Address:</strong>
+    <%= @event.address %>
+  </p>
 
-<p>
-  <strong>Organizer:</strong>
-  <%= @event.organizer_id %>
-</p>
-<label>Organized By:</label><br/>
-   <% @event_owners.each do |event_owner|%>
-   <%= image_tag avatar_url(event_owner) %>
-   <%= event_owner.email %>
-   <% end %>
-<br/>
+  <p>
+    <strong>Organizer:</strong>
+    <%= @event.organizer_id %>
+  </p>
+  <label>Organized By:</label><br/>
+     <% @event_owners.each do |event_owner|%>
+     <%= image_tag avatar_url(event_owner) %>
+     <%= event_owner.email %>
+     <% end %>
+  <br/>
 
+    <%= link_to "Join", event_join_path(event_id: @event.id, event_title:@event.title), class: "btn btn-success btn-small" %>
+   
+    <% if user_signed_in? && @event.organizer_id == current_user.id%>
+      <label>Join Requests</label>
+      <% if @pending_requests.present? %>
+        <% @pending_requests.each do |p|%>
+          <%= image_tag avatar_url(p.user) %>
+          <%= p.user.email%>
+          <%= link_to 'Accept', event_accept_request_path(:event_id => @event.id, :attendance_id => p.id), :class=>"btn btn-success btn-small" %>
+          <%= link_to 'Reject', event_reject_request_path(:event_id => @event.id,:attendance_id => p.id), :class=>"btn btn-danger btn-small" %>
+        <%end%>
+      <%else%>
+        <p>No Pending Requests for this event</p>
+      <%end%>
+    <%end%>
 
-<p>
-  <%= @event.all_tags %>
-</p>
+    <label>Attendees</label>
+    <% @attendees.each do |a|%>
+      <%= image_tag avatar_url(a.user) %>
+      <%= a.user.email%>
+    <%end%>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+  <p>
+    <%= @event.all_tags %>
+  </p>
+
+  <%= link_to 'Edit', edit_event_path(@event) %> |
+  <%= link_to 'Back', events_path %>
+</div>

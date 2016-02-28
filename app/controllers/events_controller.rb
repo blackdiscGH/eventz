@@ -17,6 +17,9 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    binding.pry
+    @event_owners = []
+    @event_owners << @event.organizer
   end
 
   # GET /events/new
@@ -68,23 +71,24 @@ class EventsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event
-      @event = Event.friendly.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def event_params
-      params.require(:event).permit(:title, :start_date, :end_date, :location, :agenda, :address, :organizer_id, :all_tags)
-    end
-end
-
-def event_owner!
-  authenticate_user!
-  if @event.organizer_id != current_user.id
-    redirect_to events_path
-    flash[:notice] = 'You do not have enough
-      permissions to do this'
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event
+    @event = Event.friendly.find(params[:id])
   end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def event_params
+    params.require(:event).permit(:title, :start_date, :end_date, :location, :agenda, :address, :organizer_id, :all_tags)
+  end
+
+  def event_owner!
+    authenticate_user!
+    if @event.organizer_id != current_user.id
+      redirect_to events_path
+      flash[:notice] = 'You do not have enough
+        permissions to do this'
+    end
+  end
+
 end

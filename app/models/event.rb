@@ -1,6 +1,10 @@
 class Event < ActiveRecord::Base
+ 
 	belongs_to :organizer, class_name: "User"
   # belongs_to :user
+  
+
+  mount_uploader :brand, BrandUploader
 	
 	extend FriendlyId
 	friendly_id :title, use: :slugged

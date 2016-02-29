@@ -14,23 +14,23 @@
         <th>Address</th>
         <th>Organizer</th>
         <th>Tags</th>
-        <th colspan="3"></th>
+        <th colspan="3">Options</th>
       </tr>
     </thead>
 
     <tbody>
       <% @events.each do |event| %>
         <tr>
-          <td><%= event.title %></td>
+          <td><%= event.title %>
+          <p> <%= image_tag event.brand_url(:thumb).to_s %></td>
           <td><%= l event.start_date, :format => :date_format %></td>
           <td><%= l event.end_date, :format => :date_format %></td>
           <td><%= event.location %></td>
           <td><%= event.agenda %></td>
-          <td><%= event.organizer_id %></td>
+          <td><%= event.address %></td>
+          <td><%= event.organizer.email %></td>
+          <td><%= event.all_tags.split(",").map { |t| link_to t, tag_path(t)}.join.html_safe() %> <!-- ??? --></td>
           <td><%= link_to 'Show', event%></td>
-          <td><%= event.all_tags.split(",").map { |t| link_to t, tag_path(t)}.join.html_safe() %> <!-- ??? -->
-          </td>
-   
           <td><%= link_to 'Edit', edit_event_path(event) %></td>
           <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>

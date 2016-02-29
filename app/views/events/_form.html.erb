@@ -45,6 +45,12 @@
      tag by a comma" %><br />
     <%= f.text_field :all_tags %>
   </div>
+
+  <div>
+  <%= f.label :remote_brand_url %><br />
+  <%= f.file_field :brand, multiple: true %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

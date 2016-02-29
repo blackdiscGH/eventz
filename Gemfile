@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# file uploads
+gem 'carrierwave'
+gem 'rmagick' # requires imagemagick
 
 #Devise for authentication
 gem 'devise'

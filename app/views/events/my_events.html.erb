@@ -1,0 +1,35 @@
+<div class="container-fluid">
+	<h1> My events </h1>
+	<table class="table table-hover">
+	<tr>
+		<th> Title </th>
+		<th> Start Date</th>
+		<th> End Date</th>
+		<th> Location </th>
+		<th> Address </th>
+		<th> Agenda </th>
+		<th> Organized by</th>
+		<th> Options</th>
+		<th> .... </th>
+	</tr>
+	<% @events.each do |event| %>
+	    <tr>
+		    <td> <%= event.title %> </td>
+		    <td> <%= l event.start_date, :format => :date_format %> </td>
+		    <td> <%= l event.end_date, :format => :date_format %><br/> </td>
+		    <td><%= event.location %><br/></td>
+		    <td><%= event.address %><br/></td>
+		    <td><%= event.agenda %><br/></td>
+			<td><% @event_owner = Event.event_owner(event.organizer_id)%>
+	    		<%= image_tag avatar_url(@event_owner) %>
+	    		<p>
+	    	<%= @event_owner.email %><td>
+		    <td><%= link_to 'Show Details', event, :class=>"btn btn-info btn-small" %>
+		    	<% if user_signed_in? && event.organizer_id.to_i == current_user.id%>
+					<%= link_to 'Edit', edit_event_path(event),:class=>"btn btn-primary btn-small" %>
+					<%= link_to 'Delete', event, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-danger btn-small" %>
+		        <%end%></td>
+	    </tr>
+    <% end %>
+
+</div>

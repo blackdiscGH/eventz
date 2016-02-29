@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get  :reject_request, to: 'events#reject_request', as: 'reject_request'
   end
   get 'tags/:tag', to: 'events#index', as: :tag
+  get  :my_events, to: 'events#my_events', as: 'my_events'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

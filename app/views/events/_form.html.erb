@@ -48,6 +48,14 @@
   <div>
   <%= f.label :brand_url.to_s %><br />
   <%= f.file_field :brand %>
+
+  <% unless @current_user.new_record? %>
+    <p><p>
+    <%= f.check_box :remove_brand %> 
+    <%= f.label :remove_brand, "Remove image" %>
+
+    
+  <% end %>
   </div>
 
   <div class="actions">

@@ -134,7 +134,7 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:title, :start_date, :end_date, :location, :agenda, :address, :organizer_id, :all_tags, :user_id, :brand, :remote_brand_url)
+    params.require(:event).permit(:title, :start_date, :end_date, :location, :agenda, :address, :organizer_id, :all_tags, :user_id, :brand, :remote_brand_url, :remove_brand)
   end
 
   def event_owner!

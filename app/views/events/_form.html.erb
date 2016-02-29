@@ -41,14 +41,13 @@
   </div>
   <div class="field">
    all_tags
-    <%= f.label :all_tags, "List All Tags, separate each
-     tag by a comma" %><br />
+    <%= f.label :all_tags, "List All Tags, separate each tag by a comma" %><br />
     <%= f.text_field :all_tags %>
   </div>
 
   <div>
-  <%= f.label :remote_brand_url %><br />
-  <%= f.file_field :brand, multiple: true %>
+  <%= f.label :brand_url.to_s %><br />
+  <%= f.file_field :brand %>
   </div>
 
   <div class="actions">

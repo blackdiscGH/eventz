@@ -41,6 +41,10 @@
      <%= event_owner.email %>
      <% end %>
   <br/>
+  <p> <strong> Image: </strong>
+    <%= image_tag(@event.brand_url(:thumb)) if @event.brand? %>
+    <%= @event.brand_url(:thumb).to_s %>
+  </p>
 
     <%= link_to "Join", event_join_path(event_id: @event.id, event_title:@event.title), class: "btn btn-success btn-small" %>
    

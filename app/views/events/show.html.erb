@@ -1,77 +1,85 @@
 <div class="container-fluid">
   <p id="notice"><%= notice %></p>
+  <div class="row">
+    <div class="col-sm-2"><%= image_tag(@event.brand_url(:thumb)) if @event.brand? %></div>
+    <div class="col-sm-8 ">
+      <h1><%= @event.title %></h1><br/>
+      <%= link_to "Join", event_join_path(event_id: @event.id, event_title:@event.title), class: "btn btn-info btn-small" %>
+      <%= link_to 'Edit', edit_event_path(@event), class:"btn  btn-info btn-small"  %> 
+      <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn  btn-danger btn-small" %> 
+      <%= link_to 'Back', events_path, class:"btn  btn-info btn-small" %>
+    </div>
+    <div class="col-sm-2">
+    </div>
+  </div>
 
-  <p>
-    <strong>Title:</strong>
-    <%= @event.title %>
-  </p>
-
-  <p>
-    <strong>Start date:</strong>
-    <%= l @event.start_date, :format => :date_format %>
-  </p>
-
-  <p>
-    <strong>End date:</strong>
-    <%= l @event.end_date, :format => :date_format %>
-  </p>
-
-  <p>
-    <strong>Location:</strong>
-    <%= @event.location %>
-  </p>
-
-  <p>
-    <strong>Agenda:</strong>
-    <%= @event.agenda %>
-  </p>
-
-  <p>
-    <strong>Address:</strong>
-    <%= @event.address %>
-  </p>
-
-  <p>
-    <strong>Organizer:</strong>
-    <%= @event.organizer_id %>
-  </p>
-  <label>Organized By:</label><br/>
-     <% @event_owners.each do |event_owner|%>
-     <%= image_tag avatar_url(event_owner) %>
-     <%= event_owner.email %>
-     <% end %>
-  <br/>
-  <p> <strong> Image: </strong>
-    <%= image_tag(@event.brand_url(:thumb)) if @event.brand? %>
-    <%= @event.brand_url(:thumb).to_s %>
-  </p>
-
-    <%= link_to "Join", event_join_path(event_id: @event.id, event_title:@event.title), class: "btn btn-success btn-small" %>
-   
-    <% if user_signed_in? && @event.organizer_id == current_user.id%>
-      <label>Join Requests</label>
-      <% if @pending_requests.present? %>
-        <% @pending_requests.each do |p|%>
-          <%= image_tag avatar_url(p.user) %>
-          <%= p.user.email%>
-          <%= link_to 'Accept', event_accept_request_path(:event_id => @event.id, :attendance_id => p.id), :class=>"btn btn-success btn-small" %>
-          <%= link_to 'Reject', event_reject_request_path(:event_id => @event.id,:attendance_id => p.id), :class=>"btn btn-danger btn-small" %>
+  <div class="row">
+   <div class="col-sm-2">
+   </div>
+    <div class="col-sm-8">
+      <table class="table">
+        <tr>
+          <td><strong>Date:</strong></td>
+          <td><%= l @event.start_date, :format => :date_format %> - <%= l @event.end_date, :format => :date_format %></td>
+        </tr>
+        <tr>
+          <td><strong>Location:</strong></td>
+          <td><%= @event.location %></td>
+        </tr>
+        <tr>
+          <td><strong>Agenda:</strong></td>
+          <td><%= @event.agenda %></td>
+        </tr>
+        <tr>
+          <td><strong>Address:</strong></td>
+          <td><%= @event.address %></td>
+        </tr>
+        <tr>
+          <td><strong>Organized By:</strong></td>
+          <td>
+            <% @event_owners.each do |event_owner|%>
+              <%= image_tag avatar_url(event_owner) %>
+              <%= event_owner.email %>
+            <% end %></td>
+        </tr>
+        <% if user_signed_in? && @event.organizer_id == current_user.id%>
+        <tr>
+          <td><strong>Admin</strong></td>
+          <td>
+              <label>Join Requests</label>
+                <% if @pending_requests.present? %>
+                  <% @pending_requests.each do |p|%>
+                    <%= image_tag avatar_url(p.user) %>
+                    <%= p.user.email%>
+                    <%= link_to 'Accept', event_accept_request_path(:event_id => @event.id, :attendance_id => p.id), :class=>"btn btn-success btn-small" %>
+                    <%= link_to 'Reject', event_reject_request_path(:event_id => @event.id,:attendance_id => p.id), :class=>"btn btn-danger btn-small" %>
+                  <%end%>
+                <%else%>
+                <p>No Pending Requests for this event</p>
+              <%end%>
+            </td>
+        </tr>
         <%end%>
-      <%else%>
-        <p>No Pending Requests for this event</p>
-      <%end%>
-    <%end%>
+      </table>
+    </div> <!-- class="col-sm-10" -->
 
-    <label>Attendees</label>
-    <% @attendees.each do |a|%>
-      <%= image_tag avatar_url(a.user) %>
-      <%= a.user.email%>
-    <%end%>
 
-  <p>
-    <%= @event.all_tags %>
-  </p>
+    <div class="col-sm-2">
+      <div>
+        <h3>Attendees</h3>
+       
+        <% @attendees.each do |a|%>
+          <%= image_tag avatar_url(a.user) %><br />
+          <%= a.user.email%><br /><br />
+        <%end%>
+      </div>
+      <div>
+          <h3> Tags </h3>
+          <% tag_cloud Event.tag_counts, %w{css1 css2 css3 css4} do |tag, css_class| %>
+          <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+          <% end %>
+      </div>
+    </div> <!-- class="col-sm-2" -->
 
-  <%= link_to 'Edit', edit_event_path(@event) %> |
-  <%= link_to 'Back', events_path %>
+  </div> <!-- class = "row" -->
 </div>

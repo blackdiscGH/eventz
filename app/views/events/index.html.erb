@@ -1,35 +1,35 @@
 <div class="container-fluid">
-  <p id="notice"><%= notice %></p>
+  <div class="row">
+    <div class="col-sm-1">
 
-  <div class="container-fluid">
-    <% @events.each_slice(3) do |eventArray| %> 
-      <div class="stylish-panel"> 
-        <% eventArray.each do |event| %>
-          <div class="col-md-4">
-            <div>
-              <%= image_tag event.brand_url(:thumb).to_s %>
-              <h4>  <%= link_to event.title, event%> </h4>
-              
-              <%= l event.start_date, :format => :date_format %>  <%= event.location %> <p>
-              <!-- deleted Tags refer history -->
-
-
-            </div>
+    </div>
+    <div class="col-sm-9">
+      <div class="container-fluid">
+        <p id="notice"><%= notice %></p><br>
+        <% @events.each_slice(3) do |eventArray| %> 
+          <div class="stylish-panel"> 
+            <% eventArray.each do |event| %>
+              <div class="col-md-4">
+                <div>
+                  <%= image_tag event.brand_url(:thumb).to_s %>
+                  <h4>  <%= link_to event.title, event%> </h4>
+                  <%= l event.start_date, :format => :date_format %>  <%= event.location %> <p>
+                </div>
+              </div>
+            <% end %>
           </div>
         <% end %>
+      </div>      
+    </div>
+    <div class="col-sm-2">
+      <div><br><br>
       </div>
-    <% end %>
-  </div>
-  <br>
-  <%= link_to 'New Event', new_event_path %>
-
-  <div class="col-lg-4">
-  <h3>Search Tags</h3>
-    <div>
-     <% tag_cloud Event.tag_counts, %w{css1 css2 css3 css4} do |tag, css_class| %>
-     <%= link_to tag.name, tag_path(tag.name), class:
-       css_class %>
-    <% end %>
+      <h3>Search Tags</h3><br><br>
+      <div>
+        <% tag_cloud Event.tag_counts, %w{css1 css2 css3 css4} do |tag, css_class| %>
+          <%= link_to tag.name + "   ", tag_path(tag.name), class:"btn btn-default" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

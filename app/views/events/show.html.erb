@@ -1,5 +1,4 @@
 <div class="container-fluid">
-  <p id="notice"><%= notice %></p>
   <div class="row">
     <div class="col-sm-2"><%= image_tag(@event.brand_url(:thumb)) if @event.brand? %></div>
     <div class="col-sm-8 ">
@@ -8,7 +7,9 @@
       <%= link_to 'Edit', edit_event_path(@event), class:"btn  btn-info btn-small"  %> 
       <%= link_to 'Destroy', @event, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn  btn-danger btn-small" %> 
       <%= link_to 'Back', events_path, class:"btn  btn-info btn-small" %>
+      <div id="notice"><br><p><strong><%= notice %></strong></p></div>
     </div>
+
     <div class="col-sm-2">
     </div>
   </div>
